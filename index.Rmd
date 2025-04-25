@@ -1,7 +1,11 @@
 ---
 title: "Encuesta de Egresados"
 runtime: shiny
-output: html_document
+output: 
+  html_notebook: 
+    toc: true
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
@@ -30,7 +34,6 @@ server <- function(input, output, session) {
 
 shinyApp(ui, server)
 ```
-
 
 ### Encuesta
 
@@ -72,7 +75,7 @@ sliderInput("p3d", "Resolución de problemas", min = 1, max = 5, value = 3)
 actionButton("enviar_encuesta", "Enviar Encuesta", class = "btn-success")
 ```
 
------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 ### Resultados
 
