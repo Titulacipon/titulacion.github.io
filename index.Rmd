@@ -10,8 +10,8 @@ library(DT)
 library(ggplot2)
 ```
 
-```{r}
-fluidPage(
+```{r, echo=FALSE}
+ui <- fluidPage(
   titlePanel("Datos Personales"),
   textInput("nombre", "Nombres Completos*"),
   textInput("apellido", "Apellidos Completos*"),
@@ -23,12 +23,18 @@ fluidPage(
               choices = c("Mecánica Automotriz", "Mecatrónica", "Contabilidad")),
   actionButton("guardar_datos", "Guardar Datos", class = "btn-primary")
 )
+
+server <- function(input, output, session) {
+  # Aquí puedes agregar lógica si necesitas procesar datos
+}
+
+shinyApp(ui, server)
 ```
 
 
 ### Encuesta
 
-```{r}
+```{r, echo=FALSE}
 radioButtons("p1", "¿Actualmente usted se encuentra trabajando?", choices = c("Sí", "No"), inline = TRUE)
 
 conditionalPanel(
@@ -66,12 +72,11 @@ sliderInput("p3d", "Resolución de problemas", min = 1, max = 5, value = 3)
 actionButton("enviar_encuesta", "Enviar Encuesta", class = "btn-success")
 ```
 
-Column {data-width=650}
 -----------------------------------------------------------------------
 
 ### Resultados
 
-```{r}
+```{r, echo=FALSE}
 datos <- reactiveValues(
   personales = NULL,
   respuestas = list()
