@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>index.knit</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.4.1/accessibility/css/bootstrap-accessibility.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.4.1/accessibility/js/bootstrap-accessibility.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/selectize-0.15.2/css/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="site_libs/selectize-0.15.2/js/selectize.min.js"></script>
+<script src="site_libs/selectize-0.15.2/accessibility/js/selectize-plugin-a11y.min.js"></script>
+<script src="site_libs/ionrangeslider-javascript-2.3.1/js/ion.rangeSlider.min.js"></script>
+<script src="site_libs/strftime-0.9.2/strftime-min.js"></script>
+<link href="site_libs/ionrangeslider-css-2.3.1/css/ion.rangeSlider.css" rel="stylesheet" />
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">My Website</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+
+</div>
+
+<div id="TOC">
+<ul>
+<li><a href="#column" id="toc-column">Column</a>
+<ul>
+<li><a href="#datos-personales" id="toc-datos-personales">Datos
+Personales</a></li>
+<li><a href="#encuesta" id="toc-encuesta">Encuesta</a></li>
+</ul></li>
+<li><a href="#column-1" id="toc-column-1">Column</a>
+<ul>
+<li><a href="#resultados" id="toc-resultados">Resultados</a></li>
+</ul></li>
+</ul>
+</div>
+
+<pre class="yaml"><code>---
+title: &quot;Encuesta de Egresados&quot;
+runtime: shiny
+output: html_document
+---
+
+
+
+
+``` r
+fluidPage(
+  titlePanel(&quot;Datos Personales&quot;),
+  textInput(&quot;nombre&quot;, &quot;Nombres Completos*&quot;),
+  # Agrega aquí el resto de los inputs
+)</code></pre>
+<div class="container-fluid">
+<h2>Datos Personales</h2>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="nombre-label" for="nombre">Nombres Completos*</label>
+<input id="nombre" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+</div>
+<div id="column" class="section level2" data-width="350">
+<h2>Column</h2>
+<div id="datos-personales" class="section level3">
+<h3>Datos Personales</h3>
+<pre class="r"><code>textInput(&quot;nombre&quot;, &quot;Nombres Completos*&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="nombre-label" for="nombre">Nombres Completos*</label>
+<input id="nombre" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<pre class="r"><code>textInput(&quot;apellido&quot;, &quot;Apellidos Completos*&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="apellido-label" for="apellido">Apellidos Completos*</label>
+<input id="apellido" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<pre class="r"><code>textInput(&quot;cedula&quot;, &quot;Número de Cédula*&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="cedula-label" for="cedula">Número de Cédula*</label>
+<input id="cedula" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<pre class="r"><code>textInput(&quot;celular&quot;, &quot;Teléfono/Celular*&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="celular-label" for="celular">Teléfono/Celular*</label>
+<input id="celular" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<pre class="r"><code>textInput(&quot;email&quot;, &quot;Correo Electrónico*&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="email-label" for="email">Correo Electrónico*</label>
+<input id="email" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<pre class="r"><code>selectInput(&quot;promocion&quot;, &quot;Promoción*&quot;, choices = 2023:2024)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="promocion-label" for="promocion">Promoción*</label>
+<div>
+<select id="promocion" class="shiny-input-select"><option value="2023" selected>2023</option>
+<option value="2024">2024</option></select>
+<script type="application/json" data-for="promocion" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<pre class="r"><code>selectInput(&quot;carrera&quot;, &quot;Carrera*&quot;,
+            choices = c(&quot;Mecánica Automotriz&quot;, &quot;Mecatrónica&quot;, &quot;Contabilidad&quot;))</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="carrera-label" for="carrera">Carrera*</label>
+<div>
+<select id="carrera" class="shiny-input-select"><option value="Mecánica Automotriz" selected>Mecánica Automotriz</option>
+<option value="Mecatrónica">Mecatrónica</option>
+<option value="Contabilidad">Contabilidad</option></select>
+<script type="application/json" data-for="carrera" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<pre class="r"><code>actionButton(&quot;guardar_datos&quot;, &quot;Guardar Datos&quot;, class = &quot;btn-primary&quot;)</code></pre>
+<button class="btn btn-default action-button btn-primary" id="guardar_datos" type="button">Guardar Datos</button>
+</div>
+<div id="encuesta" class="section level3">
+<h3>Encuesta</h3>
+<pre class="r"><code>radioButtons(&quot;p1&quot;, &quot;¿Actualmente usted se encuentra trabajando?&quot;, choices = c(&quot;Sí&quot;, &quot;No&quot;), inline = TRUE)</code></pre>
+<div id="p1" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline" role="radiogroup" aria-labelledby="p1-label">
+<label class="control-label" id="p1-label" for="p1">¿Actualmente usted se encuentra trabajando?</label>
+<div class="shiny-options-group">
+<label class="radio-inline">
+<input type="radio" name="p1" value="Sí" checked="checked"/>
+<span>Sí</span>
+</label>
+<label class="radio-inline">
+<input type="radio" name="p1" value="No"/>
+<span>No</span>
+</label>
+</div>
+</div>
+<pre class="r"><code>conditionalPanel(
+  condition = &quot;input.p1 == &#39;Sí&#39;&quot;,
+  textInput(&quot;p1a_cargo&quot;, &quot;¿Cuál es su cargo actual?&quot;),
+  textInput(&quot;p1a_empresa&quot;, &quot;Nombre de la empresa o institución&quot;),
+  selectInput(&quot;p1a_sector&quot;, &quot;Sector económico&quot;, choices = c(&quot;Público&quot;, &quot;Privado&quot;, &quot;ONG&quot;, &quot;Otro&quot;)),
+  numericInput(&quot;p1a_sueldo&quot;, &quot;Ingreso mensual (USD)&quot;, value = 0, min = 0),
+  radioButtons(&quot;p1a_relacion&quot;, &quot;¿Relacionado con su formación?&quot;, choices = c(&quot;Sí&quot;, &quot;No&quot;), inline = TRUE)
+)</code></pre>
+<div class="shiny-panel-conditional" data-display-if="input.p1 == &#39;Sí&#39;" data-ns-prefix="">
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p1a_cargo-label" for="p1a_cargo">¿Cuál es su cargo actual?</label>
+<input id="p1a_cargo" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p1a_empresa-label" for="p1a_empresa">Nombre de la empresa o institución</label>
+<input id="p1a_empresa" type="text" class="shiny-input-text form-control" value=""/>
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p1a_sector-label" for="p1a_sector">Sector económico</label>
+<div>
+<select id="p1a_sector" class="shiny-input-select"><option value="Público" selected>Público</option>
+<option value="Privado">Privado</option>
+<option value="ONG">ONG</option>
+<option value="Otro">Otro</option></select>
+<script type="application/json" data-for="p1a_sector" data-nonempty="">{"plugins":["selectize-plugin-a11y"]}</script>
+</div>
+</div>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p1a_sueldo-label" for="p1a_sueldo">Ingreso mensual (USD)</label>
+<input id="p1a_sueldo" type="number" class="shiny-input-number form-control" value="0" min="0"/>
+</div>
+<div id="p1a_relacion" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline" role="radiogroup" aria-labelledby="p1a_relacion-label">
+<label class="control-label" id="p1a_relacion-label" for="p1a_relacion">¿Relacionado con su formación?</label>
+<div class="shiny-options-group">
+<label class="radio-inline">
+<input type="radio" name="p1a_relacion" value="Sí" checked="checked"/>
+<span>Sí</span>
+</label>
+<label class="radio-inline">
+<input type="radio" name="p1a_relacion" value="No"/>
+<span>No</span>
+</label>
+</div>
+</div>
+</div>
+<pre class="r"><code>conditionalPanel(
+  condition = &quot;input.p1 == &#39;No&#39;&quot;,
+  radioButtons(&quot;p1b_razon&quot;, &quot;Razón por la que no trabaja&quot;,
+               choices = c(&quot;Estoy estudiando&quot;, &quot;No encuentro trabajo&quot;, 
+                          &quot;No estoy interesado en trabajar&quot;, &quot;Otro&quot;))
+)</code></pre>
+<div class="shiny-panel-conditional" data-display-if="input.p1 == &#39;No&#39;" data-ns-prefix="">
+<div id="p1b_razon" class="form-group shiny-input-radiogroup shiny-input-container" role="radiogroup" aria-labelledby="p1b_razon-label">
+<label class="control-label" id="p1b_razon-label" for="p1b_razon">Razón por la que no trabaja</label>
+<div class="shiny-options-group">
+<div class="radio">
+<label>
+<input type="radio" name="p1b_razon" value="Estoy estudiando" checked="checked"/>
+<span>Estoy estudiando</span>
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="p1b_razon" value="No encuentro trabajo"/>
+<span>No encuentro trabajo</span>
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="p1b_razon" value="No estoy interesado en trabajar"/>
+<span>No estoy interesado en trabajar</span>
+</label>
+</div>
+<div class="radio">
+<label>
+<input type="radio" name="p1b_razon" value="Otro"/>
+<span>Otro</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+<pre class="r"><code>radioButtons(&quot;p2&quot;, &quot;¿Cómo califica la formación técnica?&quot;,
+             choices = c(&quot;Excelente&quot;, &quot;Buena&quot;, &quot;Regular&quot;, &quot;Mala&quot;), inline = TRUE)</code></pre>
+<div id="p2" class="form-group shiny-input-radiogroup shiny-input-container shiny-input-container-inline" role="radiogroup" aria-labelledby="p2-label">
+<label class="control-label" id="p2-label" for="p2">¿Cómo califica la formación técnica?</label>
+<div class="shiny-options-group">
+<label class="radio-inline">
+<input type="radio" name="p2" value="Excelente" checked="checked"/>
+<span>Excelente</span>
+</label>
+<label class="radio-inline">
+<input type="radio" name="p2" value="Buena"/>
+<span>Buena</span>
+</label>
+<label class="radio-inline">
+<input type="radio" name="p2" value="Regular"/>
+<span>Regular</span>
+</label>
+<label class="radio-inline">
+<input type="radio" name="p2" value="Mala"/>
+<span>Mala</span>
+</label>
+</div>
+</div>
+<pre class="r"><code>checkboxGroupInput(&quot;p2b&quot;, &quot;¿Qué aspectos mejoraría?&quot;,
+                   choices = c(&quot;Plan de estudios&quot;, &quot;Talleres prácticos&quot;, 
+                               &quot;Profesores&quot;, &quot;Equipamiento técnico&quot;, 
+                               &quot;Vinculación con empresas&quot;))</code></pre>
+<div id="p2b" class="form-group shiny-input-checkboxgroup shiny-input-container" role="group" aria-labelledby="p2b-label">
+<label class="control-label" id="p2b-label" for="p2b">¿Qué aspectos mejoraría?</label>
+<div class="shiny-options-group">
+<div class="checkbox">
+<label>
+<input type="checkbox" name="p2b" value="Plan de estudios"/>
+<span>Plan de estudios</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="p2b" value="Talleres prácticos"/>
+<span>Talleres prácticos</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="p2b" value="Profesores"/>
+<span>Profesores</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="p2b" value="Equipamiento técnico"/>
+<span>Equipamiento técnico</span>
+</label>
+</div>
+<div class="checkbox">
+<label>
+<input type="checkbox" name="p2b" value="Vinculación con empresas"/>
+<span>Vinculación con empresas</span>
+</label>
+</div>
+</div>
+</div>
+<pre class="r"><code>textAreaInput(&quot;p2c&quot;, &quot;Comentarios adicionales&quot;)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p2c-label" for="p2c">Comentarios adicionales</label>
+<textarea id="p2c" class="shiny-input-textarea form-control"></textarea>
+</div>
+<pre class="r"><code>sliderInput(&quot;p3a&quot;, &quot;Habilidades prácticas&quot;, min = 1, max = 5, value = 3)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p3a-label" for="p3a">Habilidades prácticas</label>
+<input class="js-range-slider" id="p3a" data-skin="shiny" data-min="1" data-max="5" data-from="3" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+</div>
+<pre class="r"><code>sliderInput(&quot;p3b&quot;, &quot;Conocimientos técnicos&quot;, min = 1, max = 5, value = 3)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p3b-label" for="p3b">Conocimientos técnicos</label>
+<input class="js-range-slider" id="p3b" data-skin="shiny" data-min="1" data-max="5" data-from="3" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+</div>
+<pre class="r"><code>sliderInput(&quot;p3c&quot;, &quot;Manejo de equipos&quot;, min = 1, max = 5, value = 3)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p3c-label" for="p3c">Manejo de equipos</label>
+<input class="js-range-slider" id="p3c" data-skin="shiny" data-min="1" data-max="5" data-from="3" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+</div>
+<pre class="r"><code>sliderInput(&quot;p3d&quot;, &quot;Resolución de problemas&quot;, min = 1, max = 5, value = 3)</code></pre>
+<div class="form-group shiny-input-container">
+<label class="control-label" id="p3d-label" for="p3d">Resolución de problemas</label>
+<input class="js-range-slider" id="p3d" data-skin="shiny" data-min="1" data-max="5" data-from="3" data-step="1" data-grid="true" data-grid-num="4" data-grid-snap="false" data-prettify-separator="," data-prettify-enabled="true" data-keyboard="true" data-data-type="number"/>
+</div>
+<pre class="r"><code>actionButton(&quot;enviar_encuesta&quot;, &quot;Enviar Encuesta&quot;, class = &quot;btn-success&quot;)</code></pre>
+<button class="btn btn-default action-button btn-success" id="enviar_encuesta" type="button">Enviar Encuesta</button>
+</div>
+</div>
+<div id="column-1" class="section level2" data-width="650">
+<h2>Column</h2>
+<div id="resultados" class="section level3">
+<h3>Resultados</h3>
+<pre class="r"><code>datos &lt;- reactiveValues(
+  personales = NULL,
+  respuestas = list()
+)
+
+observeEvent(input$guardar_datos, {
+  datos$personales &lt;- data.frame(
+    Nombre = input$nombre,
+    Apellido = input$apellido,
+    Cedula = input$cedula,
+    Celular = input$celular,
+    Email = input$email,
+    Promocion = input$promocion,
+    Carrera = input$carrera,
+    Fecha = Sys.Date()
+  )
+  showNotification(&quot;Datos personales guardados!&quot;, type = &quot;message&quot;)
+})
+
+observeEvent(input$enviar_encuesta, {
+  datos$respuestas &lt;- list(
+    situacion_laboral = list(
+      trabaja = input$p1,
+      cargo = if(input$p1 == &quot;Sí&quot;) input$p1a_cargo else NA,
+      empresa = if(input$p1 == &quot;Sí&quot;) input$p1a_empresa else NA,
+      sector = if(input$p1 == &quot;Sí&quot;) input$p1a_sector else NA,
+      sueldo = if(input$p1 == &quot;Sí&quot;) input$p1a_sueldo else NA,
+      relacion = if(input$p1 == &quot;Sí&quot;) input$p1a_relacion else NA,
+      razon_no_trabaja = if(input$p1 == &quot;No&quot;) input$p1b_razon else NA
+    ),
+    satisfaccion = list(
+      calificacion = input$p2,
+      aspectos_mejorar = input$p2b,
+      comentarios = input$p2c
+    ),
+    competencias = list(
+      habilidades_practicas = input$p3a,
+      conocimientos_tecnicos = input$p3b,
+      manejo_equipos = input$p3c,
+      resolucion_problemas = input$p3d
+    )
+  )
+  showNotification(&quot;Encuesta enviada correctamente!&quot;, type = &quot;message&quot;)
+})
+
+renderPlot({
+  req(datos$respuestas$situacion_laboral$trabaja)
+  df &lt;- data.frame(
+    Categoria = c(&quot;Trabajando&quot;, &quot;No Trabajando&quot;),
+    Valor = c(sum(datos$respuestas$situacion_laboral$trabaja == &quot;Sí&quot;), 
+              sum(datos$respuestas$situacion_laboral$trabaja == &quot;No&quot;))
+  )
+  ggplot(df, aes(x = Categoria, y = Valor, fill = Categoria)) +
+    geom_bar(stat = &quot;identity&quot;) +
+    labs(title = &quot;Situación Laboral de Egresados&quot;, y = &quot;Cantidad&quot;) +
+    scale_fill_manual(values = c(&quot;#0056b3&quot;, &quot;#6c757d&quot;)) +
+    theme_minimal()
+})</code></pre>
+<div class="shiny-plot-output html-fill-item" id="out11189456676f06cd" style="width:100%;height:400px;"></div>
+<pre class="r"><code>renderDT({
+  req(datos$personales)
+  df &lt;- data.frame(
+    Nombre = paste(datos$personales$Nombre, datos$personales$Apellido),
+    Carrera = datos$personales$Carrera,
+    Promocion = datos$personales$Promocion,
+    Trabaja = datos$respuestas$situacion_laboral$trabaja,
+    Satisfaccion = datos$respuestas$satisfaccion$calificacion
+  )
+  datatable(df, options = list(pageLength = 5))
+})</code></pre>
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="out82428d5706e5a689" style="width:100%;height:auto;"></div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
