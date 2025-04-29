@@ -1,62 +1,104 @@
 ---
-title: "Sistema de Titulación"
+title: "Sistema de Titulación - Registro de Estudiantes"
 output: 
-  html_document:
-    toc: true
-    toc_float: true
-    includes:
-      before_body: header.html
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+runtime: shiny
 ---
 
-<!-- Encabezado principal -->
-<div class="header">
-  <h1>Sistema de Titulación 2025</h1>
-  <h2>Facultad de Ciencias Técnicas</h2>
-</div>
+```{r setup_librerias, include=FALSE} 
+# Cambié el nombre del chunk a "setup_librerias"
+# Librerías necesarias
+library(shiny)
+library(DT)
+```
 
-<!-- Sección de Bienvenida -->
-<div class="welcome-box">
-  <h3>Bienvenidos</h3>
-  <p>¡Bienvenidos al Sistema Nacional de Registro de Titulación 2025! Este sistema está dirigido a estudiantes próximos a titularse.</p>
-  <p>A continuación, encontrará información relevante sobre los requisitos, fechas importantes y enlaces para completar su registro.</p>
-</div>
 
-<!-- Registro de Estudiantes -->
-<div class="register-box">
-  <h3>Registro de Estudiantes</h3>
-  <form>
-    <label for="nombre">Nombre Completo*:</label><br>
-    <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" class="input-field"><br>
-    
-    <label for="cedula">Número de Cédula*:</label><br>
-    <input type="text" id="cedula" name="cedula" placeholder="Ingrese su cédula" class="input-field"><br>
-    
-    <label for="email">Correo Electrónico*:</label><br>
-    <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" class="input-field"><br>
-    
-    <label for="carrera">Carrera*:</label><br>
-    <select id="carrera" name="carrera" class="input-field">
-      <option value="Mecánica Automotriz">Mecánica Automotriz</option>
-      <option value="Mecatrónica">Mecatrónica</option>
-      <option value="Contabilidad">Contabilidad</option>
-    </select><br>
-    
-    <button type="submit" class="btn-primary">Registrar</button>
-  </form>
-</div>
 
-<!-- Información Importante -->
-<div class="info-box">
-  <h3>Información Importante</h3>
-  <ul>
-    <li>Consulta los <a href="https://example.com/requisitos" target="_blank">Requisitos de Titulación</a>.</li>
-    <li>El registro debe ser realizado únicamente por los estudiantes.</li>
-    <li>Fechas límite de registro: <strong>30 de junio de 2025</strong>.</li>
-    <li>Para más información, comuníquese con la facultad a través de nuestro <a href="mailto:soporte@universidad.edu.ec">correo de soporte</a>.</li>
-  </ul>
-</div>
+### Registro de Estudiantes y Encuesta
 
-<!-- Pie de página -->
-<div class="footer">
-  <p>© 2025 Sistema de Titulación - Facultad de Ciencias Técnicas</p>
-</div>
+```{r}
+# Interfaz de usuario
+fluidPage(
+  titlePanel("Registro de Estudiantes"),
+  
+  tabsetPanel(id = "tabs",  # Asignar ID a las pestañas para controlarlas dinámicamente
+    # Pestaña 1: Registro de Estudiantes
+    tabPanel("Registro",
+      fluidRow(
+        column(6,
+          h3("Formulario de Registro"),
+          textInput("nombre", "Nombre Completo*", ""),
+          textInput("cedula", "Número de Cédula*", ""),
+          textInput("email", "Correo Electrónico*", ""),
+          selectInput("carrera", "Carrera*", choices = c("Mecánica Automotriz", "Mecatrónica", "Contabilidad")),
+          actionButton("registrar", "Registrar", class = "btn-primary")
+        ),
+        column(6,
+          h3("Información Importante"),
+          p("Consulta los ", 
+            a("requisitos de titulación", href = "https://example.com/requisitos", target = "_blank"), "."),
+          p("El registro debe ser realizado únicamente por los estudiantes."),
+          p("Fechas límite de registro: ", strong("30 de junio de 2025"), "."),
+          p("Para más información, comuníquese con la facultad a través de nuestro ",
+            a("correo de soporte", href = "mailto:soporte@universidad.edu.ec"), ".")
+        )
+      )
+    ),
+    
+    # Pestaña 2: Encuesta
+    tabPanel("Encuesta",
+      fluidRow(
+        column(12,
+          h3("Encuesta de Satisfacción"),
+          p("Por favor, completa la siguiente encuesta sobre el sistema de registro."),
+          radioButtons("pregunta1", "¿Cómo calificarías el sistema de registro?", 
+                       choices = c("Excelente", "Bueno", "Regular", "Malo")),
+          textAreaInput("comentarios", "Comentarios adicionales:", "", placeholder = "Escribe aquí tus comentarios..."),
+          actionButton("enviar_encuesta", "Enviar Encuesta", class = "btn-success")
+        )
+      )
+    )
+  )
+)
+```
+
+```{r server_librerias, include=FALSE}
+# Lógica del servidor
+server <- function(input, output, session) {
+  # Base de datos reactiva para almacenar registros
+  registros <- reactiveValues(data = data.frame(
+    Nombre = character(), Cedula = character(), Email = character(), Carrera = character(),
+    stringsAsFactors = FALSE
+  ))
+  
+  # Validar y registrar estudiante
+  observeEvent(input$registrar, {
+    if (input$nombre != "" && input$cedula != "" && input$email != "") {
+      # Guardar datos
+      registros$data <- rbind(registros$data, data.frame(
+        Nombre = input$nombre,
+        Cedula = input$cedula,
+        Email = input$email,
+        Carrera = input$carrera,
+        stringsAsFactors = FALSE
+      ))
+      
+      # Mostrar mensaje de éxito
+      showNotification("Registro completado exitosamente. Por favor, completa la encuesta.", type = "message")
+      
+      # Cambiar a la pestaña de Encuesta
+      updateTabsetPanel(session, inputId = "tabs", selected = "Encuesta")
+    } else {
+      showNotification("Por favor, completa todos los campos obligatorios.", type = "error")
+    }
+  })
+  
+  # Manejar envío de encuesta
+  observeEvent(input$enviar_encuesta, {
+    showNotification("Gracias por completar la encuesta.", type = "message")
+  })
+}
+```
+
