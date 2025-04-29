@@ -1,4 +1,83 @@
----
-title: "About This Website"
----
+library(shiny)
+library(DT)
 
+# Interfaz de usuario
+ui <- fluidPage(
+  titlePanel("Sistema de Registro y Proceso de Graduación"),
+  
+  tabsetPanel(
+    # Pestaña 1: Registro
+    tabPanel("Registro",
+      fluidRow(
+        column(6,
+          textInput("nombre", "Nombre Completo*", ""),
+          textInput("cedula", "Número de Cédula*", ""),
+          textInput("email", "Correo Electrónico*", ""),
+          selectInput("carrera", "Carrera*", choices = c("Mecánica Automotriz", "Mecatrónica", "Contabilidad")),
+          actionButton("registrar", "Registrar", class = "btn-primary")
+        )
+      ),
+      hr(),
+      h3("Lista de Estudiantes Registrados"),
+      DTOutput("tabla_registro")
+    ),
+    
+    # Pestaña 2: Proceso de Graduación
+    tabPanel("Proceso de Graduación",
+      h3("Etapas del Proceso"),
+      checkboxGroupInput("etapas", "Seleccione las etapas completadas:",
+                         choices = c("Revisión de Requisitos", "Inscripción en Actividades", "Entrega de Proyecto", "Defensa de Proyecto")),
+      actionButton("guardar_progreso", "Guardar Progreso", class = "btn-success"),
+      hr(),
+      h4("Progreso del Estudiante"),
+      verbatimTextOutput("progreso")
+    )
+  )
+)
+
+# Servidor
+server <- function(input, output, session) {
+  # Datos reactivos para almacenar estudiantes
+  datos <- reactiveValues(registro = data.frame(Nombre = character(), Cedula = character(), Email = character(), Carrera = character(), stringsAsFactors = FALSE))
+  
+  # Función para registrar estudiantes
+  observeEvent(input$registrar, {
+    if (input$nombre != "" && input$cedula != "" && input$email != "") {
+      datos$registro <- rbind(datos$registro, data.frame(
+        Nombre = input$nombre,
+        Cedula = input$cedula,
+        Email = input$email,
+        Carrera = input$carrera,
+        stringsAsFactors = FALSE
+      ))
+      showNotification("Registro completado exitosamente.", type = "message")
+    } else {
+      showNotification("Por favor, complete todos los campos obligatorios.", type = "error")
+    }
+  })
+  
+  # Mostrar tabla de estudiantes registrados
+  output$tabla_registro <- renderDT({
+    datatable(datos$registro, options = list(pageLength = 5))
+  })
+  
+  # Guardar progreso del proceso de graduación
+  progreso <- reactiveValues(etapas = NULL)
+  
+  observeEvent(input$guardar_progreso, {
+    progreso$etapas <- input$etapas
+    showNotification("Progreso guardado.", type = "message")
+  })
+  
+  # Mostrar progreso del estudiante
+  output$progreso <- renderPrint({
+    if (is.null(progreso$etapas)) {
+      "No se ha completado ninguna etapa."
+    } else {
+      paste("Etapas completadas:", paste(progreso$etapas, collapse = ", "))
+    }
+  })
+}
+
+# Correr la aplicación
+shinyApp(ui, server)

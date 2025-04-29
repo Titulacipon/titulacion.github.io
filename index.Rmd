@@ -2,48 +2,58 @@
 title: "Sistema de Titulación"
 output: 
   html_document:
-    toc: false
-    theme: flatly
-    css: styles.css
+    toc: true
+    toc_float: true
+    includes:
+      before_body: header.html
 ---
 
-<!-- Banner superior -->
-<div class="banner">
+<!-- Encabezado principal -->
+<div class="header">
   <h1>Sistema de Titulación 2025</h1>
-  <h3>Facultad de Ciencias Técnicas</h3>
+  <h2>Facultad de Ciencias Técnicas</h2>
 </div>
 
-<!-- Sección de registro -->
-<div style="margin: 20px;">
-  <h2>Registro de Estudiantes</h2>
+<!-- Sección de Bienvenida -->
+<div class="welcome-box">
+  <h3>Bienvenidos</h3>
+  <p>¡Bienvenidos al Sistema Nacional de Registro de Titulación 2025! Este sistema está dirigido a estudiantes próximos a titularse.</p>
+  <p>A continuación, encontrará información relevante sobre los requisitos, fechas importantes y enlaces para completar su registro.</p>
+</div>
+
+<!-- Registro de Estudiantes -->
+<div class="register-box">
+  <h3>Registro de Estudiantes</h3>
   <form>
     <label for="nombre">Nombre Completo*:</label><br>
-    <input type="text" id="nombre" name="nombre" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+    <input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" class="input-field"><br>
     
     <label for="cedula">Número de Cédula*:</label><br>
-    <input type="text" id="cedula" name="cedula" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+    <input type="text" id="cedula" name="cedula" placeholder="Ingrese su cédula" class="input-field"><br>
     
     <label for="email">Correo Electrónico*:</label><br>
-    <input type="email" id="email" name="email" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br>
+    <input type="email" id="email" name="email" placeholder="Ingrese su correo electrónico" class="input-field"><br>
     
     <label for="carrera">Carrera*:</label><br>
-    <select id="carrera" name="carrera" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+    <select id="carrera" name="carrera" class="input-field">
       <option value="Mecánica Automotriz">Mecánica Automotriz</option>
       <option value="Mecatrónica">Mecatrónica</option>
       <option value="Contabilidad">Contabilidad</option>
     </select><br>
     
-    <button type="submit" class="btn btn-primary">Registrar</button>
+    <button type="submit" class="btn-primary">Registrar</button>
   </form>
 </div>
 
-<!-- Información importante -->
+<!-- Información Importante -->
 <div class="info-box">
-  <h2>📢 Información importante</h2>
-  <p>Consulta los <a href="https://example.com/requisitos" target="_blank" style="color: #0056b3;">requisitos de titulación</a>.</p>
-  <p>El registro debe ser realizado únicamente por los estudiantes.</p>
-  <p>Fechas límite de registro: <strong>30 de junio de 2025</strong>.</p>
-  <p>Para más información, comuníquese con la facultad a través de nuestro <a href="mailto:soporte@universidad.edu.ec" style="color: #0056b3;">correo de soporte</a>.</p>
+  <h3>Información Importante</h3>
+  <ul>
+    <li>Consulta los <a href="https://example.com/requisitos" target="_blank">Requisitos de Titulación</a>.</li>
+    <li>El registro debe ser realizado únicamente por los estudiantes.</li>
+    <li>Fechas límite de registro: <strong>30 de junio de 2025</strong>.</li>
+    <li>Para más información, comuníquese con la facultad a través de nuestro <a href="mailto:soporte@universidad.edu.ec">correo de soporte</a>.</li>
+  </ul>
 </div>
 
 <!-- Pie de página -->
