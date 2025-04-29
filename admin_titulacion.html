@@ -11,27 +11,29 @@
 
 
 
-<title>about.knit</title>
+<title>Administrador - Sistema de Titulación</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="site_libs/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
+<link href="site_libs/bootstrap-3.4.1/css/bootstrap.min.css" rel="stylesheet" />
+<link href="site_libs/bootstrap-3.4.1/accessibility/css/bootstrap-accessibility.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.4.1/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.4.1/accessibility/js/bootstrap-accessibility.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.33/datatables.js"></script>
+<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
 
 <style type="text/css">
   code{white-space: pre-wrap;}
@@ -219,6 +221,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#section-TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#section-TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -226,6 +291,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="section-TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -256,80 +331,57 @@ $(document).ready(function () {
   </div><!--/.container -->
 </div><!--/.navbar -->
 
-<div id="header">
+<div id="section-header">
 
 
 
+<h1 class="title toc-ignore">Administrador - Sistema de Titulación</h1>
 
 </div>
 
 
-<p>library(shiny) library(DT)</p>
-<div id="interfaz-de-usuario" class="section level1">
-<h1>Interfaz de usuario</h1>
-<p>ui &lt;- fluidPage( titlePanel(“Sistema de Registro y Proceso de
-Graduación”),</p>
-<p>tabsetPanel( # Pestaña 1: Registro tabPanel(“Registro”, fluidRow(
-column(6, textInput(“nombre”, “Nombre Completo<em>”, ””),
-textInput(”cedula”, ”Número de Cédula</em>”, ““), textInput(”email”,
-“Correo Electrónico<em>”, ””), selectInput(”carrera”, ”Carrera</em>”,
-choices = c(“Mecánica Automotriz”, “Mecatrónica”, “Contabilidad”)),
-actionButton(“registrar”, “Registrar”, class = “btn-primary”) ) ), hr(),
-h3(“Lista de Estudiantes Registrados”), DTOutput(“tabla_registro”)
-),</p>
-<pre><code># Pestaña 2: Proceso de Graduación
-tabPanel(&quot;Proceso de Graduación&quot;,
-  h3(&quot;Etapas del Proceso&quot;),
-  checkboxGroupInput(&quot;etapas&quot;, &quot;Seleccione las etapas completadas:&quot;,
-                     choices = c(&quot;Revisión de Requisitos&quot;, &quot;Inscripción en Actividades&quot;, &quot;Entrega de Proyecto&quot;, &quot;Defensa de Proyecto&quot;)),
-  actionButton(&quot;guardar_progreso&quot;, &quot;Guardar Progreso&quot;, class = &quot;btn-success&quot;),
-  hr(),
-  h4(&quot;Progreso del Estudiante&quot;),
-  verbatimTextOutput(&quot;progreso&quot;)
+<div id="section-panel-del-administrador" class="section level3">
+<h3>Panel del Administrador</h3>
+<pre class="r"><code># Interfaz de usuario
+fluidPage(
+  titlePanel(&quot;Panel del Administrador&quot;),
+  
+  sidebarLayout(
+    sidebarPanel(
+      h3(&quot;Opciones&quot;),
+      downloadButton(&quot;descargar&quot;, &quot;Descargar Registros&quot;, class = &quot;btn-success&quot;)
+    ),
+    
+    mainPanel(
+      h3(&quot;Estudiantes Registrados&quot;),
+      DTOutput(&quot;tabla_registro&quot;)
+    )
+  )
 )</code></pre>
-<p>) )</p>
+<div class="container-fluid">
+<h2>Panel del Administrador</h2>
+<div class="row">
+<div class="col-sm-4">
+<form class="well" role="complementary">
+<h3>Opciones</h3>
+<a aria-disabled="true" class="btn btn-default shiny-download-link disabled btn-success" download href="" id="descargar" tabindex="-1" target="_blank">
+<i class="fas fa-download" role="presentation" aria-label="download icon"></i>
+Descargar Registros
+</a>
+</form>
 </div>
-<div id="servidor" class="section level1">
-<h1>Servidor</h1>
-<p>server &lt;- function(input, output, session) { # Datos reactivos
-para almacenar estudiantes datos &lt;- reactiveValues(registro =
-data.frame(Nombre = character(), Cedula = character(), Email =
-character(), Carrera = character(), stringsAsFactors = FALSE))</p>
-<p># Función para registrar estudiantes observeEvent(input<span
-class="math inline">\(registrar, {
-    if (input\)</span>nombre != “” &amp;&amp; input<span
-class="math inline">\(cedula != &quot;&quot; &amp;&amp;
-input\)</span>email != ““) { datos<span class="math inline">\(registro
-&lt;- rbind(datos\)</span>registro, data.frame( Nombre = input<span
-class="math inline">\(nombre,
-        Cedula = input\)</span>cedula, Email = input<span
-class="math inline">\(email,
-        Carrera = input\)</span>carrera, stringsAsFactors = FALSE ))
-showNotification(”Registro completado exitosamente.”, type = “message”)
-} else { showNotification(“Por favor, complete todos los campos
-obligatorios.”, type = “error”) } })</p>
-<p># Mostrar tabla de estudiantes registrados output<span
-class="math inline">\(tabla_registro &lt;- renderDT({
-    datatable(datos\)</span>registro, options = list(pageLength = 5))
-})</p>
-<p># Guardar progreso del proceso de graduación progreso &lt;-
-reactiveValues(etapas = NULL)</p>
-<p>observeEvent(input<span class="math inline">\(guardar_progreso, {
-    progreso\)</span>etapas &lt;- input$etapas
-showNotification(“Progreso guardado.”, type = “message”) })</p>
-<p># Mostrar progreso del estudiante output<span
-class="math inline">\(progreso &lt;- renderPrint({
-    if (is.null(progreso\)</span>etapas)) { “No se ha completado ninguna
-etapa.” } else { paste(“Etapas completadas:”, paste(progreso$etapas,
-collapse = “,”)) } }) }</p>
+<div class="col-sm-8" role="main">
+<h3>Estudiantes Registrados</h3>
+<div class="datatables html-widget html-widget-output shiny-report-size html-fill-item" id="tabla_registro" style="width:100%;height:auto;"></div>
 </div>
-<div id="correr-la-aplicación" class="section level1">
-<h1>Correr la aplicación</h1>
-<p>shinyApp(ui, server)</p>
+</div>
+</div>
 </div>
 
 
 
+</div>
+</div>
 
 </div>
 
@@ -350,7 +402,7 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-  window.buildTabsets("TOC");
+  window.buildTabsets("section-TOC");
 });
 
 $(document).ready(function () {
@@ -362,6 +414,35 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#section-TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
