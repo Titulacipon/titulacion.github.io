@@ -1,153 +1,52 @@
 ---
-title: "Encuesta de Egresados"
-runtime: shiny
+title: "Sistema de Titulación"
 output: 
-  html_notebook: 
-    toc: true
-editor_options: 
-  chunk_output_type: inline
+  html_document:
+    toc: false
+    theme: flatly
+    css: "styles.css"
 ---
 
 ```{r setup, include=FALSE}
+# Carga de librerías (si necesitas interactividad futura con shiny o gráficos)
 library(shiny)
-library(DT)
-library(ggplot2)
 ```
 
-```{r, echo=FALSE}
-ui <- fluidPage(
-  titlePanel("Datos Personales"),
-  textInput("nombre", "Nombres Completos*"),
-  textInput("apellido", "Apellidos Completos*"),
-  textInput("cedula", "Número de Cédula*"),
-  textInput("celular", "Teléfono/Celular*"),
-  textInput("email", "Correo Electrónico*"),
-  selectInput("promocion", "Promoción*", choices = 2023:2024),
-  selectInput("carrera", "Carrera*",
-              choices = c("Mecánica Automotriz", "Mecatrónica", "Contabilidad")),
-  actionButton("guardar_datos", "Guardar Datos", class = "btn-primary")
-)
+<!-- Banner superior -->
+<div style="background-color: #0056b3; color: white; padding: 20px; text-align: center;">
+  <h1>Sistema de Titulación 2025</h1>
+  <h3>Facultad de Ciencias Técnicas</h3>
+</div>
 
-server <- function(input, output, session) {
-  # Aquí puedes agregar lógica si necesitas procesar datos
-}
+<!-- Sección de bienvenida -->
+<div style="margin: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+  <h2>Bienvenidos</h2>
+  <p style="font-size: 18px; line-height: 1.6;">
+    ¡Bienvenidos al Sistema Nacional de Registro de Titulación 2025! Este sistema está dirigido a estudiantes próximos a titularse.
+  </p>
+  <p style="font-size: 18px; line-height: 1.6;">
+    A continuación, encontrará información relevante sobre los requisitos, fechas importantes y enlaces para completar su registro.
+  </p>
+</div>
 
-shinyApp(ui, server)
-```
+<!-- Información importante -->
+<div style="margin: 20px; padding: 20px; border: 2px solid #ffcc00; border-radius: 10px; background-color: #fff9e6;">
+  <h2 style="color: #cc0000;">📢 Información importante</h2>
+  <ul style="font-size: 18px; line-height: 1.6;">
+    <li>Consulta los <a href="https://example.com/bases" target="_blank" style="color: #0056b3;">requisitos de titulación</a>.</li>
+    <li>El registro debe ser realizado únicamente por los estudiantes.</li>
+    <li>Fechas límite de registro: <strong>30 de junio de 2025</strong>.</li>
+    <li>Para más información, comuníquese con la facultad a través de nuestro <a href="mailto:soporte@universidad.edu.ec" style="color: #0056b3;">correo de soporte</a>.</li>
+  </ul>
+</div>
 
-### Encuesta
+<!-- Botones de acceso rápido -->
+<div style="margin: 20px; text-align: center;">
+  <a href="https://example.com/registro" target="_blank" class="btn btn-primary" style="margin: 10px; padding: 10px 20px; font-size: 18px;">Iniciar Registro</a>
+  <a href="https://example.com/contacto" target="_blank" class="btn btn-success" style="margin: 10px; padding: 10px 20px; font-size: 18px;">Contacto</a>
+</div>
 
-```{r, echo=FALSE}
-radioButtons("p1", "¿Actualmente usted se encuentra trabajando?", choices = c("Sí", "No"), inline = TRUE)
-
-conditionalPanel(
-  condition = "input.p1 == 'Sí'",
-  textInput("p1a_cargo", "¿Cuál es su cargo actual?"),
-  textInput("p1a_empresa", "Nombre de la empresa o institución"),
-  selectInput("p1a_sector", "Sector económico", choices = c("Público", "Privado", "ONG", "Otro")),
-  numericInput("p1a_sueldo", "Ingreso mensual (USD)", value = 0, min = 0),
-  radioButtons("p1a_relacion", "¿Relacionado con su formación?", choices = c("Sí", "No"), inline = TRUE)
-)
-
-
-conditionalPanel(
-  condition = "input.p1 == 'No'",
-  radioButtons("p1b_razon", "Razón por la que no trabaja",
-               choices = c("Estoy estudiando", "No encuentro trabajo", 
-                          "No estoy interesado en trabajar", "Otro"))
-)
-
-radioButtons("p2", "¿Cómo califica la formación técnica?",
-             choices = c("Excelente", "Buena", "Regular", "Mala"), inline = TRUE)
-
-checkboxGroupInput("p2b", "¿Qué aspectos mejoraría?",
-                   choices = c("Plan de estudios", "Talleres prácticos", 
-                               "Profesores", "Equipamiento técnico", 
-                               "Vinculación con empresas"))
-
-textAreaInput("p2c", "Comentarios adicionales")
-
-sliderInput("p3a", "Habilidades prácticas", min = 1, max = 5, value = 3)
-sliderInput("p3b", "Conocimientos técnicos", min = 1, max = 5, value = 3)
-sliderInput("p3c", "Manejo de equipos", min = 1, max = 5, value = 3)
-sliderInput("p3d", "Resolución de problemas", min = 1, max = 5, value = 3)
-
-actionButton("enviar_encuesta", "Enviar Encuesta", class = "btn-success")
-```
-
-------------------------------------------------------------------------
-
-### Resultados
-
-```{r, echo=FALSE}
-datos <- reactiveValues(
-  personales = NULL,
-  respuestas = list()
-)
-
-observeEvent(input$guardar_datos, {
-  datos$personales <- data.frame(
-    Nombre = input$nombre,
-    Apellido = input$apellido,
-    Cedula = input$cedula,
-    Celular = input$celular,
-    Email = input$email,
-    Promocion = input$promocion,
-    Carrera = input$carrera,
-    Fecha = Sys.Date()
-  )
-  showNotification("Datos personales guardados!", type = "message")
-})
-
-observeEvent(input$enviar_encuesta, {
-  datos$respuestas <- list(
-    situacion_laboral = list(
-      trabaja = input$p1,
-      cargo = if(input$p1 == "Sí") input$p1a_cargo else NA,
-      empresa = if(input$p1 == "Sí") input$p1a_empresa else NA,
-      sector = if(input$p1 == "Sí") input$p1a_sector else NA,
-      sueldo = if(input$p1 == "Sí") input$p1a_sueldo else NA,
-      relacion = if(input$p1 == "Sí") input$p1a_relacion else NA,
-      razon_no_trabaja = if(input$p1 == "No") input$p1b_razon else NA
-    ),
-    satisfaccion = list(
-      calificacion = input$p2,
-      aspectos_mejorar = input$p2b,
-      comentarios = input$p2c
-    ),
-    competencias = list(
-      habilidades_practicas = input$p3a,
-      conocimientos_tecnicos = input$p3b,
-      manejo_equipos = input$p3c,
-      resolucion_problemas = input$p3d
-    )
-  )
-  showNotification("Encuesta enviada correctamente!", type = "message")
-})
-
-renderPlot({
-  req(datos$respuestas$situacion_laboral$trabaja)
-  df <- data.frame(
-    Categoria = c("Trabajando", "No Trabajando"),
-    Valor = c(sum(datos$respuestas$situacion_laboral$trabaja == "Sí"), 
-              sum(datos$respuestas$situacion_laboral$trabaja == "No"))
-  )
-  ggplot(df, aes(x = Categoria, y = Valor, fill = Categoria)) +
-    geom_bar(stat = "identity") +
-    labs(title = "Situación Laboral de Egresados", y = "Cantidad") +
-    scale_fill_manual(values = c("#0056b3", "#6c757d")) +
-    theme_minimal()
-})
-
-renderDT({
-  req(datos$personales)
-  df <- data.frame(
-    Nombre = paste(datos$personales$Nombre, datos$personales$Apellido),
-    Carrera = datos$personales$Carrera,
-    Promocion = datos$personales$Promocion,
-    Trabaja = datos$respuestas$situacion_laboral$trabaja,
-    Satisfaccion = datos$respuestas$satisfaccion$calificacion
-  )
-  datatable(df, options = list(pageLength = 5))
-})
-```
+<!-- Pie de página -->
+<div style="background-color: #0056b3; color: white; text-align: center; padding: 10px; margin-top: 40px;">
+  <p>© 2025 Sistema de Titulación - Facultad de Ciencias Técnicas</p>
+</div>
