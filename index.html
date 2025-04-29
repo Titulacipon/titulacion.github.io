@@ -267,8 +267,7 @@ $(document).ready(function () {
 
 
 <!-- Banner superior -->
-<div
-style="background-color: #0056b3; color: white; padding: 20px; text-align: center;">
+<div class="banner">
 <h1>
 Sistema de Titulación 2025
 </h1>
@@ -276,55 +275,52 @@ Sistema de Titulación 2025
 Facultad de Ciencias Técnicas
 </h3>
 </div>
-<!-- Sección de bienvenida -->
-<div
-style="margin: 20px; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+<!-- Sección de registro -->
+<div style="margin: 20px;">
 <h2>
-Bienvenidos
+Registro de Estudiantes
 </h2>
-<p style="font-size: 18px; line-height: 1.6;">
-¡Bienvenidos al Sistema Nacional de Registro de Titulación 2025! Este
-sistema está dirigido a estudiantes próximos a titularse.
-</p>
-<p style="font-size: 18px; line-height: 1.6;">
-A continuación, encontrará información relevante sobre los requisitos,
-fechas importantes y enlaces para completar su registro.
-</p>
+<form>
+<p><label for="nombre">Nombre Completo*:</label><br>
+<input type="text" id="nombre" name="nombre" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br></p>
+<p><label for="cedula">Número de Cédula*:</label><br>
+<input type="text" id="cedula" name="cedula" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br></p>
+<p><label for="email">Correo Electrónico*:</label><br>
+<input type="email" id="email" name="email" style="width: 100%; padding: 10px; margin-bottom: 10px;"><br></p>
+<p><label for="carrera">Carrera*:</label><br>
+<select id="carrera" name="carrera" style="width: 100%; padding: 10px; margin-bottom: 10px;">
+<option value="Mecánica Automotriz">Mecánica Automotriz</option>
+<option value="Mecatrónica">Mecatrónica</option>
+<option value="Contabilidad">Contabilidad</option> </select><br></p>
+<button type="submit" class="btn btn-primary">
+Registrar
+</button>
+</form>
 </div>
 <!-- Información importante -->
-<div
-style="margin: 20px; padding: 20px; border: 2px solid #ffcc00; border-radius: 10px; background-color: #fff9e6;">
-<h2 style="color: #cc0000;">
+<div class="info-box">
+<h2>
 📢 Información importante
 </h2>
-<ul style="font-size: 18px; line-height: 1.6;">
-<li>
+<p>
 Consulta los
-<a href="https://example.com/bases" target="_blank" style="color: #0056b3;">requisitos
+<a href="https://example.com/requisitos" target="_blank" style="color: #0056b3;">requisitos
 de titulación</a>.
-</li>
-<li>
+</p>
+<p>
 El registro debe ser realizado únicamente por los estudiantes.
-</li>
-<li>
+</p>
+<p>
 Fechas límite de registro: <strong>30 de junio de 2025</strong>.
-</li>
-<li>
+</p>
+<p>
 Para más información, comuníquese con la facultad a través de nuestro
 <a href="mailto:soporte@universidad.edu.ec" style="color: #0056b3;">correo
 de soporte</a>.
-</li>
-</ul>
-</div>
-<!-- Botones de acceso rápido -->
-<div style="margin: 20px; text-align: center;">
-<p><a href="https://example.com/registro" target="_blank" class="btn btn-primary" style="margin: 10px; padding: 10px 20px; font-size: 18px;">Iniciar
-Registro</a>
-<a href="https://example.com/contacto" target="_blank" class="btn btn-success" style="margin: 10px; padding: 10px 20px; font-size: 18px;">Contacto</a></p>
+</p>
 </div>
 <!-- Pie de página -->
-<div
-style="background-color: #0056b3; color: white; text-align: center; padding: 10px; margin-top: 40px;">
+<div class="footer">
 <p>
 © 2025 Sistema de Titulación - Facultad de Ciencias Técnicas
 </p>
